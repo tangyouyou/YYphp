@@ -1,0 +1,42 @@
+快速开发框架:基于MVC
+单入口文件:引入框架，把框架的引导过程交给框架出来
+应用概念：商城，论坛，交友等
+模块：前台，后台，会员中心等
+控制器：查看积分，修改密码，查看订单等
+动作/方法：验证积分 验证密码 
+
+Application{
+	Admin{
+		Controller{//控制器目录
+			LoginController.class.php
+		},
+		Config{//配置目录
+			config.php
+		},
+		View{//视图目录
+			login.php
+			addUser.php
+		},
+		Model{//模型目录
+
+		},
+		Lib{//扩展类
+
+		}
+	},
+	Index{
+		Controller{//控制器目录
+			LoginController.class.php
+		},
+		Config{//配置目录
+			config.php
+		},
+		View{//视图目录
+			login.php
+			addUser.php
+		},
+		Model{//模型目录
+
+		}
+	}
+}
