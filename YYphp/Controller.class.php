@@ -1,11 +1,13 @@
 <?php
 require_once(YY_PATH."Smarty/Smarty.class.php"); 
-//spl_autoload_register("__autoload");
 class Controller extends Smarty{
 
-	// public function __construct(){
-	// 	echo "1";
-	// }
+	public function __construct(){
+		// $this->template_dir = VIEW_PATH.CONTROLLER;
+		// $this->compile_dir = VIEW_PATH.'/Compile';
+		// is_dir($this->compile_dir) or mkdir($this->compile_dir,0755,true);
+		// $this->display('index.html');
+	}
 
 
 

@@ -44,6 +44,7 @@ final class yyPHP{
 	//定义常量
 	static private function setConst(){
       define('YY_PATH',dirname(__FILE__).'/');
+      define('APP_DEUBG',TRUE);
 	}
 
 	//加载文件
