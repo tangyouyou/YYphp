@@ -3,7 +3,6 @@
 class IndexController extends Controller{
 	//默认访问动作
 	public function index(){
-		//显示视图
-		echo "11";
+		$this->display();
 	}
 }

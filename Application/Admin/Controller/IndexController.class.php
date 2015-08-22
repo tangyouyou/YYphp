@@ -6,4 +6,10 @@ class IndexController extends Controller{
 		//显示视图
 		$this->display();
 	}
+
+	public function reg(){
+		$this->display();
+	}
+
+
 }

@@ -25,6 +25,10 @@
    			return $config[$name] = $value;
    		}
    }
+   //路由函数
+   function U(){
+      
+   }
 
    /**
     * 设置和获取统计数据
@@ -82,7 +86,7 @@
               YY_PATH.'Driver/Db/'.$class.'.class.php'
             )
          );
-      }elseif(substr($clas, -5) == 'Cache'){
+      }elseif(substr($class, -5) == 'Cache'){
          require_array(
             array(
                YY_PATH.'Core/'.$class.'.class.php'
@@ -96,4 +100,10 @@
       foreach ($files as $v) {
          is_file($v) && require $v;
       }
+   }
+
+   //获取客户端IP
+   function get_client_ip(){
+     $ip = $_SERVER["REMOTE_ADDR"];
+     return  $ip;
    }
