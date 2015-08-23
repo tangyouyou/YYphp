@@ -3,18 +3,25 @@
 	class LoginController extends Controller{
 
 		public function index(){
-			$this->display();
+			$this->display('index.html');
 		}
 
 		public function login(){
-			$data = array();
-			$data['username'] = $_POST['account'];
-			$data['password'] = $_POST['pwd'];
-			if(D('user')->insert($data)){
-				$this->success('index','插入成功');
+			if(IS_POST){
+				$data = array();
+				$data['username'] = $_POST['account'];
+				$data['password'] = $_POST['pwd'];
+				if(D('user')->insert($data)){
+					$this->success('index','插入成功');
+				}else{
+					$this->error('index','插入失败');
+				}
 			}else{
-				$this->error('index','插入失败');
+				halt('页面不存在');
 			}
-			$this->display();
+		}
+
+		public function reg(){
+			$this->display('reg.html');
 		}
 	}

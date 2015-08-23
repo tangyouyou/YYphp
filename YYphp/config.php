@@ -35,4 +35,6 @@ return array(
     'DATA_CACHE_PATH'       => '',// 缓存路径设置 (仅对File方式缓存有效)
     'DATA_CACHE_SUBDIR'     => false,    // 使用子目录缓存 (自动根据缓存标识的哈希创建子目录)
     'DATA_PATH_LEVEL'       => 1,        // 子目录缓存级别
+
+     
 );

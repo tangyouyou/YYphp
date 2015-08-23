@@ -44,7 +44,18 @@ final class yyPHP{
 	//定义常量
 	static private function setConst(){
       define('YY_PATH',dirname(__FILE__).'/');
-      define('APP_DEUBG',TRUE);
+      //域名
+      $host = $_SERVER['HTTP_HOST'] ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
+      define("__HOST__","http://" . trim($host, '/'));
+      //网站根-不含入口文件
+      $documentRoot = str_ireplace($_SERVER['DOCUMENT_ROOT'], '', dirname($_SERVER['SCRIPT_FILENAME']));
+      $root = empty($documentRoot) ? "" : '/' . trim(str_replace('\\', '/', $documentRoot), '/');
+      define("__ROOT__", __HOST__ . $root);
+      $url = isset($_SERVER['REDIRECT_URL']) ? rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') : $_SERVER['SCRIPT_NAME'];
+      //网站根-含入口文件
+      define("__WEB__", __HOST__ . $url);
+      //完整URL地址
+      define("__URL__", __HOST__ . '/' . trim($_SERVER['REQUEST_URI'], '/')); 
 	}
 
 	//加载文件

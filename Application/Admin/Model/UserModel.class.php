@@ -1,7 +1,7 @@
 <?php
 
 	class UserModel extends Model{
-		protected $table ="user";
+		public $table ="user";
 
 		public function addUser($data){
 			return $this->insert($data);

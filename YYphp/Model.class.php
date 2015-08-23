@@ -2,7 +2,7 @@
 //模型基础类
    class Model{
    	private $db;//数据库连接驱动
-
+      public $table;//操作的表名
       public function __construct($table=null){
           $this->db = DbFactory::getDriver();
           $this->db->table = $this->table ? $this->table : $table;
