@@ -36,5 +36,15 @@ return array(
     'DATA_CACHE_SUBDIR'     => false,    // 使用子目录缓存 (自动根据缓存标识的哈希创建子目录)
     'DATA_PATH_LEVEL'       => 1,        // 子目录缓存级别
 
+    /********************************验证码********************************/
+    "CODE_FONT"                     => YY_PATH . "Data/Font/font.ttf",       //字体
+    "CODE_STR"                      => "123456789abcdefghijklmnpqrstuvwsyz", //验证码种子
+    "CODE_WIDTH"                    => 150,         //宽度
+    "CODE_HEIGHT"                   => 45,          //高度
+    "CODE_BG_COLOR"                 => "#ffffff",   //背景颜色
+    "CODE_LEN"                      => 4,           //文字数量
+    "CODE_FONT_SIZE"                => 22,          //字体大小
+    "CODE_FONT_COLOR"               => "",          //字体颜色
+
      
 );

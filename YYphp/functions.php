@@ -25,10 +25,158 @@
    			return $config[$name] = $value;
    		}
    }
-   //路由函数
-   function U(){
-      
-   }
+
+   /**
+ * 根据配置文件的URL参数重新生成URL地址
+ * @param String $pathinfo 访问url
+ * @param array $args GET参数
+ * <code>
+ * $args = "nid=2&cid=1"
+ * $args=array("nid"=>2,"cid"=>1)
+ * </code>
+ * @return string
+ */
+    function U($pathinfo, $args = array())
+    {
+      if (preg_match("/^https?:\/\//i", $pathinfo))
+          return $pathinfo;
+      //是否指定单入口
+      $end = strpos($pathinfo, '.php');
+      if ($end) {
+          $web = __ROOT__ . '/' . substr($pathinfo, 0, $end + 4);
+          $pathinfo = substr($pathinfo, $end + 4);
+      } else {
+          $web = __WEB__;
+      }
+      //参数$args为字符串时转数组
+      if (is_string($args)) {
+          parse_str($args, $args);
+      }
+      $parseUrl = parse_url(trim($pathinfo, '/'));
+      $path = trim($parseUrl['path'], '/');
+      //解析字符串的?后参数 并与$args合并
+      if (isset($parseUrl['query'])) {
+          parse_str($parseUrl['query'], $query);
+          $args = array_merge($query, $args);
+      }
+      //组合出索引数组  将?后参数与$args传参
+      $gets = array();
+      if (is_array($args)) {
+          foreach ($args as $n => $q) {
+              array_push($gets, $n);
+              array_push($gets, $q);
+          }
+      }
+      $vars = explode("/", $path);
+      //入口文件类型
+      $urlType = C("URL_TYPE"); //1 pathinfo 2 get
+      switch ($urlType) {
+          case 1:
+              $root = $web . '/'; //入口位置
+              break;
+          case 2:
+              $root = $web . '?';
+              break;
+      }
+      //是否定义应用组
+      $set_app_group = false;
+      if (defined("GROUP_PATH")) {
+          $set_app_group = true;
+      }
+      //组合出__WEB__后内容
+      $data = array();
+      switch (count($vars)) {
+          case 2: //应用
+              if ($set_app_group) {
+                  $data[] = C("VAR_APP");
+                  $data[] = APP;
+              }
+              $data[] = C("VAR_CONTROL");
+              $data[] = array_shift($vars);
+              $data[] = C("VAR_METHOD");
+              $data[] = array_shift($vars);
+              break;
+          case 1: //方法
+              if ($set_app_group) {
+                  $data[] = C("VAR_APP");
+                  $data[] = APP;
+              }
+              $data[] = C("VAR_CONTROL");
+              $data[] = CONTROL;
+              $data[] = C("VAR_METHOD");
+              $data[] = array_shift($vars);
+              break;
+          default: //应用组及其他情况
+              $data[] = C("VAR_APP");
+              $data[] = array_shift($vars);
+              $data[] = C("VAR_CONTROL");
+              $data[] = array_shift($vars);
+              $data[] = C("VAR_METHOD");
+              $data[] = array_shift($vars);
+              if (is_array($vars)) {
+                  foreach ($vars as $v) {
+                      $data[] = $v;
+                  }
+              }
+      }
+      $varsAll = array_merge($data, $gets); //合并GET参数
+      $url = '';
+      switch ($urlType) {
+          case 1:
+              foreach ($varsAll as $value) {
+                  $url .= C('PATHINFO_Dli') . $value;
+              }
+              $url = str_replace(array("/" . C("VAR_APP") . "/", "/" . C("VAR_CONTROL") . "/", "/" . C("VAR_METHOD") . "/"), "/", $url);
+              $url = substr($url, 1);
+              break;
+          case 2:
+              foreach ($varsAll as $k => $value) {
+                  if ($k % 2) {
+                      $url .= '=' . $value;
+                  } else {
+                      $url .= '&' . $value;
+                  }
+              }
+              $url = substr($url, 1);
+              break;
+      }
+      $pathinfo_html = $urlType === 1 ? '.' . trim(C("PATHINFO_HTML"), '.') : ''; //伪表态后缀如.html
+      return $root . Route::toUrl($url) . $pathinfo_html . C("PATHINFO_HTML");
+    }
+
+    /**
+     * 类库导入
+     * @param null $class 类名
+     * @param null $base 目录
+     * @param string $ext 扩展名
+     * @return bool
+     */
+    function import($class = null, $base = null, $ext = ".class.php")
+    {
+        $class = str_replace(".", "/", $class);
+        if (is_null($base)) {
+            $info = explode("/", $class);
+            if ($info[0] == '@' || APP == $info[0]) {
+                $base = APP_PATH;
+                $class = substr_replace($class, '', 0, strlen($info[0]) + 1);
+            } elseif (strtoupper($info[0]) == 'HDPHP') {
+                $base = dirname(substr_replace($class, HDPHP_PATH, 0, 5));
+                $class = basename($class);
+            } elseif (in_array(strtoupper($info[0]), array("LIB", "ORG"))) {
+                $base = HDPHP_EXTEND_PATH;
+            } else {
+                //其它应用
+                $base = APP_PATH . '../' . $info[0] . '/';
+                $class = substr_replace($class, '', 0, strlen($info[0]) + 1);
+            }
+        }
+        $base = rtrim($base, '/') . '/';
+        $file = $base . $class . $ext;
+        if (!class_exists($class, false)) {
+            return require_cache($file);
+        }
+        return true;
+    }
 
    /**
     * 设置和获取统计数据

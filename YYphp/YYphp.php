@@ -1,5 +1,4 @@
 <?php
-
 //框架入口
 final class yyPHP{
     //运行框架
