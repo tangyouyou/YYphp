@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2015-08-24 18:22:21
+<?php /* Smarty version 2.6.26, created on 2015-08-25 14:26:33
          compiled from reg.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -11,7 +11,7 @@
 <body>
 	<div id='logo'></div>
 	<div id='reg-wrap'>
-		<form action="?m=Index&c=Login&a=checkReg" method='post' name='register'>
+		<form action="http://localhost/YYphp/Index/Login/checkReg" method='post' name='register'>
 			<fieldset>
 				<legend>用户注册</legend>
 				<p>
@@ -33,7 +33,7 @@
 				<p>
 					<label for="verify">验证码：</label>
 					<input type="text" name='verify' class='input' id='verify'/>
-					<img src="?m=Index&c=Login&a=verify" width='80' height='25' id='verify-img'/>
+					<img src="http://localhost/YYphp/Index/Login/verify" width='80' height='25' id='verify-img'/>
 				</p>
 				<p class='run'>
 					<input type="submit" value='马上注册' id='regis'/>

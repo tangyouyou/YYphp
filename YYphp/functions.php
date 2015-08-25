@@ -26,6 +26,11 @@
    		}
    }
 
+   function md5_s($var)
+  {
+      return md5(serialize($var));
+  }
+
    /**
  * 根据配置文件的URL参数重新生成URL地址
  * @param String $pathinfo 访问url

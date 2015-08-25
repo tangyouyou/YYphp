@@ -46,5 +46,45 @@ return array(
     "CODE_FONT_SIZE"                => 22,          //字体大小
     "CODE_FONT_COLOR"               => "",          //字体颜色
 
+     /********************************SESSION********************************/
+    "SESSION_AUTO"                  => 1,           //自动开启SESSION
+    "SESSION_NAME"                  => "hdsid",     //session_name
+    "SESSION_ENGINE"                => "file",      //引擎:file,mysql,memcache
+    "SESSION_SAVE_PATH"             => "",          //以文件处理时的位置
+    "SESSION_LIFETIME"              => 1440,        //SESSION过期时间
+    "SESSION_TABLE_NAME"            => "session",   //SESSION的表名
+    "SESSION_GC_DIVISOR"            => 10,          //SESSION清理频率,数字越小清理越频繁
+    "SESSION_MEMCACHE"              => array(       //Memcache配置,支持集群
+                "host" => "127.0.0.1",  //主机
+                "port" => 11211         //端口
+    ),
+    "SESSION_REDIS"                 => array(       //Redis配置,支持集群
+        "host" => "127.0.0.1",          //主机
+        "port" => 6379,                 //端口
+        "password" => "",               //密码
+        "Db" => 0,                      //数据库
+    ),
+
+    /********************************缓存控制********************************/
+    "CACHE_TYPE"                    => "file",      //类型:file memcache redis
+    "CACHE_MEMCACHE"                => array(       //多个服务器设置二维数组
+        "host"      => "127.0.0.1",     //主机
+        "port"      => 11211,           //端口
+        "timeout"   => 1,               //超时时间(单位为秒)
+        "weight"    => 1,               //权重
+        "pconnect"  => 1,               //持久连接
+    ),
+    "CACHE_REDIS"                   => array( //多个服务器设置二维数组
+        "host"      => "127.0.0.1",     //主机
+        "port"      => 6379,            //端口
+        "password"  => "",              //密码
+        "timeout"   => 1,               //超时时间
+        "Db"        => 0,               //数据库
+        "pconnect"  => 0,               //持久连接
+    ),
+    "CACHE_TIME"                    => 3600,        //全局默认缓存时间 0为永久缓存
+    "CACHE_SELECT_TIME"             => -1,          //SQL SELECT查询缓存时间 -1为不缓存 0为永久缓存
+    "CACHE_SELECT_LENGTH"           => 30,          //缓存最大条数
+    "CACHE_TPL_TIME"                => -1,           //模板缓存时间 -1为不缓存 0为永久缓存
      
 );
