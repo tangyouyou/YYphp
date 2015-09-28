@@ -3,15 +3,18 @@
    function p ($arg){
    	  echo "<pre>" .print_r($arg,true)."</pre>";
    }
+
    //实例化模型驱动
    function M($table){
       return new Model($table);
    }
+   
    //实例化扩展模型驱动
    function D($model){
       $model = $model."Model";
       return new $model();
    }
+
    //配置项处理
    function C($name=null,$value=null){
    		static $config = array();
@@ -20,7 +23,7 @@
    		}else if(is_array($name)){
    			return $config = array_merge($config,$name);
    		}else if(is_null($value)){
-   			return isset($config[$name])?$config[$name]:null;
+   			return isset($config[$name])? $config[$name] : null;
    		}else{
    			return $config[$name] = $value;
    		}
@@ -160,25 +163,12 @@
     {
         $class = str_replace(".", "/", $class);
         if (is_null($base)) {
-            $info = explode("/", $class);
-            if ($info[0] == '@' || APP == $info[0]) {
-                $base = APP_PATH;
-                $class = substr_replace($class, '', 0, strlen($info[0]) + 1);
-            } elseif (strtoupper($info[0]) == 'HDPHP') {
-                $base = dirname(substr_replace($class, HDPHP_PATH, 0, 5));
-                $class = basename($class);
-            } elseif (in_array(strtoupper($info[0]), array("LIB", "ORG"))) {
-                $base = HDPHP_EXTEND_PATH;
-            } else {
-                //其它应用
-                $base = APP_PATH . '../' . $info[0] . '/';
-                $class = substr_replace($class, '', 0, strlen($info[0]) + 1);
-            }
+            halt('请输入类所处位置');
         }
         $base = rtrim($base, '/') . '/';
         $file = $base . $class . $ext;
         if (!class_exists($class, false)) {
-            return require_cache($file);
+            return require($file);
         }
         return true;
     }

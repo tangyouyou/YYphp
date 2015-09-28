@@ -3,6 +3,10 @@ require_once(YY_PATH."Smarty/Smarty.class.php");
 class Controller extends Smarty{
 
 	public function __construct(){
+		//子类如果存在auto方法，自动运行
+        if (method_exists($this, "__init")) {
+            $this->__init();
+        }
 		//模板目录
 		$this->template_dir =  VIEW_PATH.CONTROLLER;
 		//编译目录

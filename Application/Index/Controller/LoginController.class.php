@@ -29,7 +29,8 @@ class LoginController extends Controller{
 	验证码
 	*/
 	public function verify(){
-		require YY_PATH.'Core/Code.class.php';
+		//require YY_PATH.'Core/Code.class.php';
+		import('Code',YY_PATH.'Core');
 		$code = new Code();
 		$code->show();
 	}
@@ -43,4 +44,6 @@ class LoginController extends Controller{
 		}
 
 	}
+
+	
 }

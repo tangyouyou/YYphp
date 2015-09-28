@@ -16,6 +16,14 @@ return array(
 	'DB_CHARSET'=>'UTF8',//设置字符集
 	//缓存文件类型
 	'DATA_CACHE_TYPE'=>'file',//file,memcache,redis
+    
+    /********************************URL设置********************************/
+    "HTTPS"                         => FALSE,       //基于https协议
+    "URL_REWRITE"                   => 1,           //url重写模式
+    "URL_TYPE"                      => 1,           //类型 1:PATHINFO模式 2:普通模式 3:兼容模式
+    "PATHINFO_DLI"                  => "/",         //PATHINFO分隔符
+    "PATHINFO_VAR"                  => "q",         //兼容模式get变量
+    "PATHINFO_HTML"                 => ".html",     //伪静态扩展名
 
 	/* 日志设置 */
     'LOG_RECORD'            => false,   // 默认不记录日志
