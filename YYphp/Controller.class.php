@@ -47,15 +47,21 @@ class Controller extends Smarty{
 	}
 
 	//为post数据提交过滤、加密处理
-	public function _post($data,$fun){
+	public function _post($data,$fun = null){
 		$data = $_POST[$data];
+		if(is_null($fun)){
+			$data = htmlspecialchars($data);
+		}
 		$data = $fun($data);
 		return $data;
 	}
 
-	//为get数据提交过滤、加密处理
-	public function _get($data,$fun){
+	//为get数据提交过滤、加密处
+	public function _get($data,$fun = null){
 		$data = $_GET[$data];
+		if(is_null($fun)){
+			$data = htmlspecialchars($data);
+		}
 		$data = $fun($data);
 		return $data;
 	}

@@ -16,6 +16,8 @@ return array(
 	'DB_CHARSET'=>'UTF8',//设置字符集
 	//缓存文件类型
 	'DATA_CACHE_TYPE'=>'file',//file,memcache,redis
+    //默认函数过滤类型
+    'FILTER_FUNCTION' =>'htmlspecialchars',
     
     /********************************URL设置********************************/
     "HTTPS"                         => FALSE,       //基于https协议
