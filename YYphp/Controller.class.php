@@ -51,8 +51,10 @@ class Controller extends Smarty{
 		$data = $_POST[$data];
 		if(is_null($fun)){
 			$data = htmlspecialchars($data);
-		}
-		$data = $fun($data);
+		} else{
+            $data = $fun($data);
+        }
+
 		return $data;
 	}
 
@@ -61,8 +63,10 @@ class Controller extends Smarty{
 		$data = $_GET[$data];
 		if(is_null($fun)){
 			$data = htmlspecialchars($data);
-		}
-		$data = $fun($data);
+		}else{
+            $data = $fun($data);
+        }
+
 		return $data;
 	}
 }
